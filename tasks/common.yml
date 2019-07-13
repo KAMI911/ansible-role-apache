@@ -1,0 +1,7 @@
+- name: create document roots
+  file:
+    path: "{{ item.documentroot }}"
+    state: directory
+    owner: '{{ item.fpm_user }}'
+    group: '{{ item.fpm_group }}'
+  with_items: "{{ apache_vhosts }}"

@@ -1,0 +1,30 @@
+
+ServerSignature Off
+ServerTokens Prod
+TraceEnable Off
+
+LimitRequestBody 204800
+FileETag None
+
+Header always set X-Frame-Options SAMEORIGIN
+Header always set X-Powered-By DARKside
+Header unset X-Generator
+Header unset X-Drupal-Cache
+Header unset X-Powered-By
+Header always set Server C64
+Header set X-XSS-Protection "1; mode=block"
+
+# Header always set Strict-Transport-Security "max-age=17280000; includeSubdomains; preload"
+
+{% if apache_vhosts_version == '2.2' %}
+<Directory />
+  AllowOverride None
+  Order Deny,Allow
+  Deny from all
+</Directory>
+{% elif apache_vhosts_version == '2.4' %}
+<Directory />
+  AllowOverride None
+  Require all denied
+</Directory>
+{%endif%}
